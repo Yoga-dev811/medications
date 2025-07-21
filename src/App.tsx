@@ -21,9 +21,9 @@ const App: React.FC = () => {
   const [caretakerEmail, setCaretakerEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    const currentSession = supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-    });
+    // const currentSession = supabase.auth.getSession().then(({ data }) => {
+    //   setSession(data.session);
+    // });
 
     const {
       data: { subscription },
@@ -43,7 +43,7 @@ const App: React.FC = () => {
   }, [session]);
 
   const fetchMedications = async () => {
-    const { data, error } = await supabase
+    const { data} = await supabase
       .from('medications')
       .select('*')
       .eq('userId', session?.user.id)
@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
   const fetchLogs = async () => {
     const today = getTodayString();
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('medication_logs')
       .select('*')
       .eq('userId', session?.user.id)
@@ -64,7 +64,7 @@ const App: React.FC = () => {
   };
 
   const fetchCaretakerEmail = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('caretakers')
       .select('email')
       .eq('userId', session?.user.id)
@@ -74,7 +74,7 @@ const App: React.FC = () => {
   };
 
   const handleAddMedication = async (med: Omit<Medication, 'id' | 'createdAt'>) => {
-    const { data, error } = await supabase
+    const { data} = await supabase
       .from('medications')
       .insert([{ ...med, userId: session?.user.id }])
       .select();
@@ -94,7 +94,7 @@ const App: React.FC = () => {
       timestamp: new Date().toISOString(),
     };
 
-    const { data, error } = await supabase
+    const { data} = await supabase
       .from('medication_logs')
       .insert([newLog]);
 

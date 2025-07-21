@@ -6,7 +6,7 @@ import type { Medication, MedicationLog, UserAccount } from '../types';
 export const mockDatabase = {
   users: [] as UserAccount[],
 
-  createUser: (email: string, password: string): UserAccount => {
+  createUser: (email: string, ): UserAccount => {// password removed
     const user: UserAccount = {
       id: Date.now().toString(),
       email,
@@ -17,7 +17,7 @@ export const mockDatabase = {
     return user;
   },
 
-  authenticateUser: (email: string, password: string): UserAccount | null => {
+  authenticateUser: (email: string): UserAccount | null => {
     return mockDatabase.users.find((u) => u.email === email) || null;
   },
 
