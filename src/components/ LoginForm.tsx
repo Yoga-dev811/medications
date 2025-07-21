@@ -43,10 +43,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     if (isLogin) {
       result = await supabase.auth.signInWithPassword({ email, password });
     } else {
-      //code changed
-          result = await supabase.auth.signUp({ email, password });
+      //code
+         result = await supabase.auth.signUp({ email, password });
     }
-
     if (result.error) {
       setError(result.error.message);
     } else if (result.data.session) {
