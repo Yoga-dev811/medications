@@ -44,22 +44,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       result = await supabase.auth.signInWithPassword({ email, password });
     } else {
       //code changed
-      const response = await fetch('/api/supabase-proxy', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ email, password }),
-});
-const data = await response.json();
-
-if (response.ok && data.session) {
-  onLogin(data.session);
-} else {
-  setError(data.error || 'Signup failed');
-}
-return;
-
+          result = await supabase.auth.signUp({ email, password });
     }
 
     if (result.error) {
